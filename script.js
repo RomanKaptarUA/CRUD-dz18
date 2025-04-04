@@ -38,15 +38,14 @@ function renderStudents(students) {
 }
 
 async function addStudent(e) {
-// preventDefault = забороняє оновлювати
-    e.preventDefault()   ;
+    e.preventDefault()
     const student = {
         name: document.getElementById('name').value,
         age: parseInt(document.getElementById('age').value),
         course: document.getElementById('course').value,
         skills: document.getElementById('skills').value.split(', ').map(s => s.trim()),
         email: document.getElementById('email').value,
-        isIntrolled: document.getElementById('isEntrolled').checked
+        isEnrolled: document.getElementById('isEnrolled').checked
     }
     await fetch(`${API_URL}/students`, {
         method: 'POST',
@@ -61,7 +60,7 @@ async function updateStudent(id) {
     const newName = prompt('Введіть нове імя');
     if(!newName) return;
 
-    await fetchfetch(`${API_URL}/students/${id}`,
+    await fetch(`${API_URL}/students/${id}`,
         {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -70,8 +69,8 @@ async function updateStudent(id) {
         getStudents();
 }
 
-async function deleteStudent() {
-     if(!confirm('Ви впевнені що хочете видалити студента?')) return;
+async function deleteStudent(id) {
+     if (!confirm('Ви впевнені що хочете видалити студента?')) return;
      
      await fetch(`${API_URL}/students/${id}`, {
            method: 'DELETE'
